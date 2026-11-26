@@ -1,0 +1,7 @@
+[workspace]
+resolver = "3"
+members = ["crates/feeling-relay"]
+
+[workspace.package]
+edition = "2024"
+license = "GPL-2.0-only"
