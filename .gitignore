@@ -1,2 +1,6 @@
 /target/
 /NOTES.local.md
+/src/
+/pkg/
+/*.pkg.tar.*
+/feeling-relay-*.tar.gz

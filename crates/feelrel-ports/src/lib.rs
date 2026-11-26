@@ -1,0 +1,27 @@
+mod accelerometer;
+mod color;
+mod cover;
+mod gesture;
+mod gravity;
+mod gyroscope;
+mod illuminance;
+mod magnetometer;
+mod motion;
+mod orientation;
+mod pedometer;
+mod rotation;
+mod timestamped;
+
+pub use accelerometer::{Acceleration, AccelerometerPort};
+pub use color::{ColorPort, ColorSample};
+pub use cover::{CoverPort, CoverState};
+pub use gesture::{Gesture, GesturePort};
+pub use gravity::{GravityPort, GravitySample};
+pub use gyroscope::{AngularVelocity, GyroscopePort};
+pub use illuminance::{Illuminance, IlluminancePort};
+pub use magnetometer::{MagneticField, MagnetometerPort};
+pub use motion::{Motion, MotionPort};
+pub use orientation::{Orientation, OrientationPort};
+pub use pedometer::{PedometerPort, StepCount};
+pub use rotation::{Rotation, RotationPort, RotationReference};
+pub use timestamped::Timestamped;

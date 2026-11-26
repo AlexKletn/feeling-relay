@@ -1,0 +1,12 @@
+[package]
+name = "feelrel-linux-adapter"
+version = "0.1.0"
+description = "Linux interfaces for feeling-relay sensor data and events"
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+feelrel-ports = { path = "../feelrel-ports" }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+evdev = "0.13"

@@ -1,0 +1,143 @@
+# Fill in the channels and report layouts for your firmware before enabling.
+enabled = false
+
+# Time allowed per SNS lookup or subscription (milliseconds).
+request_timeout_ms = 4000
+# Reconnect if acceleration samples stop for this long (milliseconds).
+sample_timeout_ms = 5000
+
+# Optional IIO outputs. Enable only after loading feelrel_iio.
+# iio_accelerometer_device = "/dev/feelrel-iio-accel"
+# iio_gyroscope_device = "/dev/feelrel-iio-gyro"
+# iio_magnetometer_device = "/dev/feelrel-iio-magn"
+# iio_measurements_directory = "/dev"
+
+[slpi]
+# SNS channel names known to the firmware.
+accelerometer_channel = "accel"
+cover_channel = "hall"
+wake_gesture_channel = "wake_gesture"
+tilt_channel = "tilt"
+# Acceleration sampling frequency in Hz and SLPI timestamp clock in ticks/sec.
+accelerometer_hz = 5.0
+timestamp_hz = 19200000
+
+# Optional continuous channels with requested sample rate in Hz.
+# [slpi.gyroscope]
+# channel = "gyro"
+# hz = 5.0
+#
+# [slpi.magnetometer]
+# channel = "mag"
+# hz = 5.0
+
+[slpi.measurements]
+# Uncomment channels provided by the firmware.
+# Scalar, state and event channels are requested on change.
+# illuminance = "ambient_light"
+# orientation = "device_orient"
+# pedometer = "pedometer"
+# significant_motion = "sig_motion"
+# psmd = "psmd"
+# Continuous measurement entries also specify a sample rate in Hz.
+# color = { channel = "rgb", hz = 5.0 }
+# gravity = { channel = "gravity", hz = 5.0 }
+# rotation = { channel = "rotv", hz = 5.0 }
+# game_rotation = { channel = "game_rv", hz = 5.0 }
+# geomagnetic_rotation = { channel = "geomag_rv", hz = 5.0 }
+
+[slpi.reports]
+# Example SNS report IDs. Set all layout tables below for the firmware's ABI.
+wake = 779
+tilt = 774
+significant_motion = 772
+
+# For each vector, field is the protobuf tag and order is a list of zero-based
+# indices to read from that field. Optional scales multiply each selected value.
+# Order here is x, y, z in the sensor coordinate frame.
+[slpi.reports.acceleration]
+message = 1025
+field = 1
+order = [0, 1, 2]
+# scales = [1.0, 1.0, 1.0]
+
+[slpi.reports.gyroscope]
+message = 1025
+field = 1
+order = [0, 1, 2]
+
+[slpi.reports.magnetometer]
+message = 1025
+field = 1
+order = [0, 1, 2]
+
+[slpi.reports.illuminance]
+message = 1025
+field = 1
+order = [0]
+
+# Temperature, clear, red, green, blue, white, integration time, gain.
+[slpi.reports.color]
+message = 1025
+field = 1
+order = [0, 1, 2, 3, 4, 5, 6, 7]
+
+# Gravity x/y/z followed by linear acceleration x/y/z.
+[slpi.reports.gravity]
+message = 1025
+field = 1
+order = [0, 1, 2, 3, 4, 5]
+
+# Quaternions are normalized to the order x, y, z, w.
+[slpi.reports.rotation]
+message = 1025
+field = 1
+order = [0, 1, 2, 3]
+
+[slpi.reports.game_rotation]
+message = 1025
+field = 1
+order = [0, 1, 2, 3]
+
+[slpi.reports.geomagnetic_rotation]
+message = 1025
+field = 1
+order = [0, 1, 2, 3]
+
+[slpi.reports.cover]
+message = 770
+field = 1
+open = 0
+closed = 1
+
+[slpi.reports.orientation]
+message = 776
+field = 1
+# Codes for upright, counterclockwise, upside-down and clockwise.
+states = [0, 1, 2, 3]
+
+[slpi.reports.steps]
+# Initial step-count and subsequent update messages.
+messages = [775, 1028]
+field = 1
+
+[slpi.reports.psmd]
+# Report number, subscription message, mode field and its values.
+message = 768
+request = 512
+mode_field = 1
+moving = 1
+stationary = 0
+
+[input]
+# Linux uinput device names and distinct positive MSC_GESTURE values.
+lid_device = "feeling-relay lid"
+gesture_device = "feeling-relay gestures"
+wake_code = 1
+tilt_code = 2
+
+# Optional MSC_GESTURE values for motion reports. Keep all codes distinct.
+# [input.motion]
+# significant = 3
+# moving = 4
+# stationary = 5
